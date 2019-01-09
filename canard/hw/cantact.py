@@ -60,16 +60,16 @@ class CantactDev:
 
         # parse the id and DLC
         if ext_id:
-            arb_id = int(rx_str[1:9], 16)
+            id = int(rx_str[1:9], 16)
             dlc = int(rx_str[9])
             data_offset = 10
         else:
-            arb_id = int(rx_str[1:4], 16)
+            id = int(rx_str[1:4], 16)
             dlc = int(rx_str[4])
             data_offset = 5
 
         # create the frame
-        frame = can.Frame(id = arb_id, dlc = dlc, is_extended_id=ext_id)
+        frame = can.Frame(id = id, dlc = dlc, is_extended_id=ext_id)
         if remote:
             frame.frame_type = can.FrameType.RemoteFrame
 
@@ -84,9 +84,9 @@ class CantactDev:
     def send(self, frame):
         # add type, id, and dlc to string
         if frame.is_extended_id:
-            tx_str = "T%08X%d" % (frame.arb_id, frame.dlc)
+            tx_str = "T%08X%d" % (frame.id, frame.dlc)
         else:
-            tx_str = "t%03X%d" % (frame.arb_id, frame.dlc)
+            tx_str = "t%03X%d" % (frame.id, frame.dlc)
 
         # add data bytes to string
         for i in range(0, frame.dlc):
