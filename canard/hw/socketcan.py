@@ -36,6 +36,11 @@ class SocketCanDev:
         frame.dlc = dlc
         frame.data = [d0, d1, d2, d3, d4, d5, d6, d7]
         frame.timestamp = time.time() - self.start_time
+        
+        frame.hexid = (hex(frame.id))
+        frame.hexdata = (bytes(frame.data).hex())
+
+        # print ('\nID: ' + str(frame.hexid) + ' Data: ' + str(frame.hexdata) + '\n')
 
         return frame
 
